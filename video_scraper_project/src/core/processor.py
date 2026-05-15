@@ -32,13 +32,19 @@ class VideoProcessor:
     - Coordinating between scraper, downloader, uploader, and sheets manager
     """
     
-    def __init__(self):
-        """Initialize the video processor with all required components."""
+    def __init__(self, temp_folder: str = None):
+        """
+        Initialize the video processor with all required components.
+        
+        Args:
+            temp_folder: Custom temporary folder path for downloaded videos.
+                        If None, uses the default from config.
+        """
         self.logger = setup_logging(self.__class__.__name__)
         
         # Initialize components
         self.scraper = VideoScraper()
-        self.downloader = VideoDownloader()
+        self.downloader = VideoDownloader(temp_folder=temp_folder)
         self.uploader = DoodStreamUploader()
         self.sheets_manager = GoogleSheetsManager()
         

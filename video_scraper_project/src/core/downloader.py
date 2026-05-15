@@ -11,6 +11,7 @@ from tqdm import tqdm
 
 from config.settings import (
     TEMP_FOLDER,
+    DEFAULT_TEMP_FOLDER,
     DEFAULT_HEADERS,
     VIDEO_MIN_SIZE,
     REQUEST_TIMEOUT,
@@ -34,15 +35,17 @@ class VideoDownloader:
         Initialize the video downloader.
         
         Args:
-            temp_folder: Folder to store temporary downloads
+            temp_folder: Folder to store temporary downloads. If None, uses config default.
             headers: HTTP headers for requests
         """
-        self.temp_folder = temp_folder or TEMP_FOLDER
+        # Use provided temp_folder, or fall back to config's DEFAULT_TEMP_FOLDER
+        self.temp_folder = temp_folder or TEMP_FOLDER or DEFAULT_TEMP_FOLDER
         self.headers = headers or DEFAULT_HEADERS
         self.logger = setup_logging(self.__class__.__name__)
         
         # Ensure temp folder exists
         os.makedirs(self.temp_folder, exist_ok=True)
+        self.logger.info(f"Temp folder initialized: {self.temp_folder}")
     
     def download_video(self, url: str, filename: str) -> Optional[str]:
         """

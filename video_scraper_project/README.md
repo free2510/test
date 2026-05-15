@@ -89,16 +89,66 @@ CATEGORY_URL=https://larozaa.yachts/category.php?cat=ramadan-2026
 CATEGORY_NAME=رمضان 2026 - مسلسلات
 
 # Paths
-TEMP_FOLDER=/content/temp_videos
-PROCESSED_FILE=/content/processed_videos.json
+# TEMP_FOLDER can be set to any local path on your PC:
+#   Windows: C:/Users/YourName/videos_temp
+#   Linux/Mac: /home/yourname/videos_temp
+#   Relative: ./temp_videos
+TEMP_FOLDER=./temp_videos
+PROCESSED_FILE=./processed_videos.json
 ```
+
+**Note:** You can also specify the temp folder at runtime using the `-t` or `--temp-folder` command-line option, which will override the `.env` setting.
 
 ## 🎯 Usage
 
 ### Basic Usage
 
+Run with default settings (uses temp folder from `.env` or `./temp_videos`):
+
 ```bash
 python main.py
+```
+
+### Custom Temp Folder
+
+Specify a custom temporary folder for downloaded videos:
+
+```bash
+# Using short option
+python main.py -t /path/to/your/temp/folder
+
+# Using long option
+python main.py --temp-folder /path/to/your/temp/folder
+
+# Example on Windows
+python main.py -t C:/Users/YourName/videos_temp
+
+# Example on Linux/Mac
+python main.py -t /home/yourname/videos_temp
+```
+
+### Custom Category URL
+
+Scrape from a different category URL:
+
+```bash
+python main.py -u https://larozaa.yachts/category.php?cat=ramadan-2027
+```
+
+### Combined Options
+
+Use both options together:
+
+```bash
+python main.py -t ./my_temp_folder -u https://larozaa.yachts/category.php?cat=custom
+```
+
+### Help
+
+View all available options:
+
+```bash
+python main.py --help
 ```
 
 ### Google Colab
@@ -107,7 +157,7 @@ This project is designed to work in Google Colab. Upload the project folder to C
 
 ```python
 !pip install -r requirements.txt
-!python main.py
+!python main.py --temp-folder /content/temp_videos
 ```
 
 ## 📊 Google Sheet Format
