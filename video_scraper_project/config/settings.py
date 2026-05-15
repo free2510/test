@@ -17,10 +17,12 @@ load_dotenv()
 
 # ==================== PATHS ====================
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMP_FOLDER = os.getenv("TEMP_FOLDER", "/content/temp_videos")
-PROCESSED_FILE = os.getenv("PROCESSED_FILE", "/content/processed_videos.json")
-TOKEN_PATH = os.getenv("TOKEN_PATH", "/content/token.json")
-CREDENTIALS_PATH = os.getenv("CREDENTIALS_PATH", "/content/credentials.json")
+# Default temp folder - can be overridden by user input or environment variable
+DEFAULT_TEMP_FOLDER = os.getenv("TEMP_FOLDER", "./temp_videos")
+TEMP_FOLDER = None  # Will be set at runtime if not provided via env var
+PROCESSED_FILE = os.getenv("PROCESSED_FILE", "./processed_videos.json")
+TOKEN_PATH = os.getenv("TOKEN_PATH", "./token.json")
+CREDENTIALS_PATH = os.getenv("CREDENTIALS_PATH", "./credentials.json")
 
 # ==================== DOODSTREAM CONFIGURATION ====================
 DOODSTREAM_API_KEY = os.getenv("DOODSTREAM_API_KEY", "566462d6434dlvqu6fmesc")
